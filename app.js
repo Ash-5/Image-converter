@@ -53,15 +53,12 @@ app.post("/cloud", function(req, res){
 app.post("/upload", upload.single("desc"), async function (req, res) {
    //using mime type of detect whether a file is image or not
     var name = req.file.mimetype;
-    console.log(req.file);
 
     if (name.includes("image")) {
         //sizeOf tells the dimensions of our image, only look for dimensions if it's an image
         var dimensions = sizeOf(req.file.path);
-        console.log(dimensions);
         if (dimensions.height == "1200" && dimensions.width == "1200") {
            
-            console.log("Starting conversion");
 
             console.log(await convert1(req.file.path, 755, 450, req.file.filename + '1.' + dimensions.type));
             var path1 = "uploads/copies/" + req.file.filename + '1.' + dimensions.type;
